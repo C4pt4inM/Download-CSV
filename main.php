@@ -36,7 +36,7 @@
 				echo '1) <a class="dwn_csv" target="_blank" href="' . wp_nonce_url( admin_url( 'admin-ajax.php?action=ctfs_csv_dl'), 'ctfs_csv_dl' ) . '">' . __( 'Download User Entries CSV', 'ctfs_csv_text' ) . '</a>';
 			?><br><br>
 			<?php 
-				// echo '2) <a class="dwn_csv" target="_blank" href="' . wp_nonce_url( admin_url( 'admin-ajax.php?action=ctfs_csv_dl_pg'), 'ctfs_csv_dl_pg' ) . '">' . __( 'Download Photo Gallery CSV', 'ctfs_csv_text' ) . '</a>';
+				 echo '2) <a class="dwn_csv" target="_blank" href="' . wp_nonce_url( admin_url( 'admin-ajax.php?action=ctfs_csv_dl_pg'), 'ctfs_csv_dl_pg' ) . '">' . __( 'Download Photo Gallery CSV', 'ctfs_csv_text' ) . '</a>';
 			?>
 			</div>
 			</div>
@@ -97,53 +97,53 @@
 			
 		}//end function
 
-		// add_action('wp_ajax_ctfs_csv_dl_pg', 'ctfs_csv_dl_pg');
-		// add_action('wp_ajax_nopriv_ctfs_csv_dl_pg', 'ctfs_csv_dl_pg');
+		 add_action('wp_ajax_ctfs_csv_dl_pg', 'ctfs_csv_dl_pg');
+		 add_action('wp_ajax_nopriv_ctfs_csv_dl_pg', 'ctfs_csv_dl_pg');
 
-		// function ctfs_csv_dl_pg()
-		// {
-		// 	global $wpdb;
-		// 	$querystr = "SELECT * FROM ctfsfsq_data INNER JOIN ctfsuser_entries ON ctfsfsq_data.email = ctfsuser_entries.u_email WHERE star = 1 ";
+		 function ctfs_csv_dl_pg()
+		 {
+		 	global $wpdb;
+		 	$querystr = "SELECT * FROM ctfsfsq_data INNER JOIN ctfsuser_entries ON ctfsfsq_data.email = ctfsuser_entries.u_email WHERE star = 1 ";
 
-		// 	$pg_entries = $wpdb->get_results($querystr, ARRAY_A);
+		 	$pg_entries = $wpdb->get_results($querystr, ARRAY_A);
 
-		// 	if(sizeof($pg_entries ) < 1 )
-		// 	{			
-		// 		die( __( 'Nothing to export!!' ) );			
-		// 	} 
-		// 	else 
-		// 	{
-		// 		$csvheads = array("Name","Email","Phone Number", "Number of Entries","Caption","Image URL"); 
+		 	if(sizeof($pg_entries ) < 1 )
+		 	{			
+		 		die( __( 'Nothing to export!!' ) );			
+		 	} 
+		 	else 
+		 	{
+		 		$csvheads = array("Name","Email","Phone Number", "Number of Entries","Caption","Image URL"); 
 
-		// 		foreach($pg_entries as $single_pg_entries) {
+		 		foreach($pg_entries as $single_pg_entries) {
 
-		// 			$ph_entry_usr_email = $single_pg_entries['u_email'];
-		// 			$ph_entry_usr_nument = $single_pg_entries['num_entries'];
+		 			$ph_entry_usr_email = $single_pg_entries['u_email'];
+		 			$ph_entry_usr_nument = $single_pg_entries['num_entries'];
 					
-		// 			$var1 = unserialize($single_pg_entries[pinfo]);
+		 			$var1 = unserialize($single_pg_entries[pinfo]);
 					
-		// 			$ph_entry_image_url = $var1[10][value];
-		// 			$ph_entry_caption = $var1[0][value];
-		// 			$ph_entry_usrname = "";
-		// 			$ph_entry_usrphnum = "";
+		 			$ph_entry_image_url = $var1[10][value];
+		 			$ph_entry_caption = $var1[0][value];
+		 			$ph_entry_usrname = "";
+		 			$ph_entry_usrphnum = "";
 					
-		// 			$getuser = get_user_by('email', $ph_entry_usr_email);
+		 			$getuser = get_user_by('email', $ph_entry_usr_email);
 					
-		// 			$ph_entry_usrname = $getuser->display_name;
-		// 			$ph_entry_usrphnum = get_the_author_meta( 'phnum', $getuser->ID );
+		 			$ph_entry_usrname = $getuser->display_name;
+		 			$ph_entry_usrphnum = get_the_author_meta( 'phnum', $getuser->ID );
 					
-		// 			$csvbody[] = array($ph_entry_usrname,$ph_entry_usr_email,$ph_entry_usrphnum,$ph_entry_usr_nument,$ph_entry_caption,$ph_entry_image_url);	
-		// 		}
+		 			$csvbody[] = array($ph_entry_usrname,$ph_entry_usr_email,$ph_entry_usrphnum,$ph_entry_usr_nument,$ph_entry_caption,$ph_entry_image_url);	
+		 		}
 
-		// 	/*======  trigger downloading ===============*/	 
-		// 	echo array2csv($csvheads, $csvbody);
-		// 	download_send_headers("photo-gallery");
+		 	/*======  trigger downloading ===============*/	 
+		 	echo array2csv($csvheads, $csvbody);
+		 	download_send_headers("photo-gallery");
 
-		// 	exit();
+		 	exit();
 				
-		// 	}//end else
+		 	}//end else
 			
-		// }//end function
+		 }//end function
 
 		function array2csv(array $arrayh, array $arrayd )
 		{
